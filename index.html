@@ -1,1 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Nexuz Corporation — Building software that matters. Custom software solutions for organizations.">
+<meta name="author" content="Nexuz Corporation">
+<meta name="theme-color" content="#0D0D1A">
 
+<!-- Open Graph -->
+<meta property="og:title" content="Nexuz Corporation — Building Software That Matters">
+<meta property="og:description" content="Custom software solutions for organizations that need it done right.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nexuzcorp.com">
+
+<!-- Performance: Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+<title>Nexuz Corporation — Building Software That Matters</title>
+
+<style>
+/* ============================================
+   RESET & ROOT
+   ============================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --navy:        #0D0D1A;
+  --navy-mid:    #111124;
+  --navy-light:  #1a1a35;
+  --purple:      #5B3FD9;
+  --purple-dim:  #3d2a99;
+  --purple-glow: rgba(91,63,217,0.15);
+  --white:       #FFFFFF;
+  --off-white:   #E8E8F0;
+  --grey:        #6B6B88;
+  --grey-light:  #9999BB;
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Crimson Pro', serif;
+  --font-mono:    'DM Mono', monospace;
+
+  --nav-h: 72px;
+  --max-w: 1280px;
+  --ease:  cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ============================================
+   CUSTOM CURSOR
+   ============================================ */
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 12px; height: 12px;
+  background: var(--purple);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s var(--ease), width 0.3s var(--ease), height 0.3s var(--ease), background 0.3s;
+  mix-blend-mode: screen;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 40px; height: 40px;
+  border: 1px solid rgba(91,63,217,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s var(--ease), width 0.3s var(--ease), height 0.3s var(--ease);
+}
+
+body:has(a:hover) .cursor,
+body:has(button:hover) .cursor {
+  width: 20px; height: 20px;
+  background: var(--white);
+}
+
+body:has(a:hover) .cursor-ring,
+body:has(button:hover) .cursor-ring {
+  width: 60px; height: 60px;
+}
+
+/* ============================================
+   NOISE OVERLAY
+   ============================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  transition: background 0.4s var(--ease), backdrop-filter 0.4s;
+}
+
+nav.scrolled {
+  background: rgba(13,13,26,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(91,63,217,0.1);
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 24px;
+  letter-spacing: 0.1em;
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-mark {
+  width: 32px;
+  height: 32px;
+  background: var(--purple);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-family: var(--font-display);
+  color: white;
+  letter-spacing: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--grey-light);
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--purple);
+  transition: width 0.3s var(--ease);
+}
+
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white) !important;
+  border: 1px solid var(--purple) !important;
+  padding: 10px 20px;
+  border-radius: 2px;
+  transition: background 0.2s, color 0.2s !important;
+}
+
+.nav-cta:hover {
+  background: var(--purple) !important;
+}
+
+.nav-cta::after { display: none !important; }
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--white);
+  transition: transform 0.3s var(--ease), opacity 0.3s;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 48px;
+  padding-top: var(--nav-h);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Grid background */
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(91,63,217,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91,63,217,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+/* Glow orb */
+#hero::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(91,63,217,0.12) 0%, transparent 70%);
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.hero-inner {
+  max-width: var(--max-w);
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--purple);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 0.2s forwards;
+}
+
+.hero-label::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--purple);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(72px, 10vw, 160px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  margin-bottom: 40px;
+}
+
+.hero-title .line {
+  display: block;
+  overflow: hidden;
+}
+
+.hero-title .line span {
+  display: block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: slideUp 0.9s var(--ease) forwards;
+}
+
+.hero-title .line:nth-child(1) span { animation-delay: 0.3s; }
+.hero-title .line:nth-child(2) span { animation-delay: 0.45s; }
+.hero-title .line:nth-child(3) span { animation-delay: 0.6s; }
+
+.hero-title .accent { color: var(--purple); }
+
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 2vw, 22px);
+  color: var(--grey-light);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 56px;
+  font-weight: 300;
+  font-style: italic;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 0.8s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 1s forwards;
+}
+
+.btn-primary {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--purple);
+  border: none;
+  padding: 16px 36px;
+  border-radius: 2px;
+  cursor: none;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s var(--ease);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--white);
+  transform: translateX(-101%);
+  transition: transform 0.4s var(--ease);
+}
+
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-primary:hover::before { transform: translateX(0); }
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+  transition: color 0.4s;
+}
+
+.btn-primary:hover span { color: var(--navy); }
+
+.btn-ghost {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--grey-light);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s, gap 0.3s var(--ease);
+}
+
+.btn-ghost:hover { color: var(--white); gap: 14px; }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 48px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease) 1.4s forwards;
+}
+
+.hero-scroll span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--grey);
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--purple), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   MARQUEE TICKER
+   ============================================ */
+.ticker {
+  padding: 20px 0;
+  background: var(--purple);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-inner {
+  display: inline-flex;
+  animation: ticker 20s linear infinite;
+}
+
+.ticker-item {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.6);
+  padding: 0 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.ticker-item::after {
+  content: '◆';
+  font-size: 8px;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ============================================
+   SECTION BASE
+   ============================================ */
+section {
+  padding: 140px 48px;
+  max-width: 100%;
+}
+
+.section-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--purple);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--purple);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 96px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   ABOUT / INTRO
+   ============================================ */
+#about {
+  background: var(--navy);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  align-items: center;
+}
+
+.about-left .section-title {
+  margin-bottom: 32px;
+}
+
+.about-text {
+  font-size: clamp(17px, 1.5vw, 21px);
+  color: var(--grey-light);
+  line-height: 1.8;
+  margin-bottom: 24px;
+  font-weight: 300;
+}
+
+.about-text strong {
+  color: var(--white);
+  font-weight: 400;
+}
+
+.about-right {
+  position: relative;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.stat-box {
+  background: var(--navy-mid);
+  padding: 40px 32px;
+  border: 1px solid rgba(91,63,217,0.1);
+  transition: border-color 0.3s, background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--purple-glow), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.stat-box:hover { border-color: rgba(91,63,217,0.4); }
+.stat-box:hover::before { opacity: 1; }
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.stat-num .stat-accent { color: var(--purple); }
+
+.stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   SERVICES
+   ============================================ */
+#services {
+  background: var(--navy-mid);
+  position: relative;
+}
+
+#services::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--purple), transparent);
+}
+
+.services-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 80px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.services-intro {
+  font-size: 18px;
+  color: var(--grey-light);
+  max-width: 400px;
+  line-height: 1.7;
+  font-style: italic;
+}
+
+.services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.service-item {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 48px;
+  padding: 40px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+  transition: padding-left 0.4s var(--ease);
+}
+
+.service-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 0;
+  background: var(--purple-glow);
+  transition: width 0.4s var(--ease);
+}
+
+.service-item:hover { padding-left: 24px; }
+.service-item:hover::before { width: 100%; }
+
+.service-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--purple);
+  letter-spacing: 0.1em;
+}
+
+.service-name {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 48px);
+  letter-spacing: 0.03em;
+  color: var(--white);
+  transition: color 0.2s;
+}
+
+.service-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.service-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--grey);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 4px 10px;
+  border-radius: 2px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.service-item:hover .service-tag {
+  border-color: rgba(91,63,217,0.4);
+  color: var(--grey-light);
+}
+
+/* ============================================
+   PROJECTS
+   ============================================ */
+#projects {
+  background: var(--navy);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 64px;
+}
+
+.project-card {
+  background: var(--navy-mid);
+  padding: 48px 40px;
+  border: 1px solid rgba(91,63,217,0.08);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+  cursor: none;
+}
+
+.project-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--purple);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+
+.project-card:hover { border-color: rgba(91,63,217,0.3); }
+.project-card:hover::after { transform: scaleX(1); }
+
+.project-card.featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%);
+  border-color: rgba(91,63,217,0.2);
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.project-status {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 2px;
+}
+
+.project-status.live {
+  background: rgba(0,200,100,0.1);
+  color: #00c864;
+  border: 1px solid rgba(0,200,100,0.2);
+}
+
+.project-status.development {
+  background: rgba(91,63,217,0.1);
+  color: var(--purple);
+  border: 1px solid rgba(91,63,217,0.2);
+}
+
+.project-year {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey);
+  letter-spacing: 0.1em;
+}
+
+.project-name {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 2.5vw, 40px);
+  letter-spacing: 0.03em;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.project-desc {
+  font-size: 15px;
+  color: var(--grey-light);
+  line-height: 1.7;
+  margin-bottom: 32px;
+  font-weight: 300;
+}
+
+.project-stack {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stack-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--purple);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(91,63,217,0.08);
+  padding: 4px 10px;
+  border-radius: 2px;
+}
+
+/* ============================================
+   PROCESS
+   ============================================ */
+#process {
+  background: var(--navy-mid);
+  position: relative;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 80px;
+}
+
+.process-step {
+  padding: 48px 32px;
+  background: var(--navy);
+  border: 1px solid rgba(91,63,217,0.06);
+  position: relative;
+  transition: border-color 0.3s;
+}
+
+.process-step:hover { border-color: rgba(91,63,217,0.3); }
+
+.process-step-num {
+  font-family: var(--font-display);
+  font-size: 80px;
+  line-height: 1;
+  color: rgba(91,63,217,0.12);
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+  transition: color 0.3s;
+}
+
+.process-step:hover .process-step-num {
+  color: rgba(91,63,217,0.3);
+}
+
+.process-step-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+}
+
+.process-step-desc {
+  font-size: 14px;
+  color: var(--grey-light);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+#cta {
+  background: var(--navy);
+  text-align: center;
+  padding: 160px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+#cta::before {
+  content: '';
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(91,63,217,0.08) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cta-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--purple);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 8vw, 128px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  margin-bottom: 40px;
+}
+
+.cta-sub {
+  font-size: 18px;
+  color: var(--grey-light);
+  line-height: 1.7;
+  margin-bottom: 56px;
+  font-style: italic;
+}
+
+.cta-email {
+  font-family: var(--font-mono);
+  font-size: clamp(14px, 2vw, 20px);
+  color: var(--purple);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(91,63,217,0.3);
+  padding-bottom: 4px;
+  transition: color 0.2s, border-color 0.2s;
+  display: inline-block;
+  margin-top: 24px;
+}
+
+.cta-email:hover {
+  color: var(--white);
+  border-color: var(--white);
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: var(--navy-mid);
+  padding: 64px 48px 40px;
+  border-top: 1px solid rgba(91,63,217,0.1);
+}
+
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 64px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.1em;
+  color: var(--white);
+}
+
+.footer-tagline {
+  font-size: 14px;
+  color: var(--grey);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.footer-col-title {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--purple);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links a {
+  font-size: 14px;
+  color: var(--grey);
+  text-decoration: none;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-links a:hover { color: var(--white); }
+
+.footer-links a::before {
+  content: '→';
+  font-size: 12px;
+  color: var(--purple);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.footer-links a:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey);
+  letter-spacing: 0.1em;
+}
+
+.footer-copy span { color: var(--purple); }
+
+.footer-legal {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-legal a {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.footer-legal a:hover { color: var(--white); }
+
+/* ============================================
+   KEYFRAMES
+   ============================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(1.2); }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .about-grid { grid-template-columns: 1fr; gap: 64px; }
+  .projects-grid { grid-template-columns: 1fr 1fr; }
+  .project-card.featured { grid-column: span 2; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 24px; }
+  section { padding: 100px 24px; }
+  #hero { padding: 0 24px; padding-top: var(--nav-h); }
+
+  .nav-links {
+    position: fixed;
+    top: var(--nav-h); left: 0; right: 0;
+    background: rgba(13,13,26,0.97);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 40px 24px;
+    gap: 24px;
+    transform: translateY(-100vh);
+    transition: transform 0.4s var(--ease);
+    border-bottom: 1px solid rgba(91,63,217,0.1);
+  }
+
+  .nav-links.open { transform: translateY(0); }
+  .nav-toggle { display: flex; }
+
+  .service-item { grid-template-columns: 60px 1fr; gap: 24px; }
+  .service-tags { display: none; }
+
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: span 1; }
+
+  .process-steps { grid-template-columns: 1fr; }
+
+  .footer-top { grid-template-columns: 1fr; gap: 40px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+}
+
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .stats-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   PERFORMANCE: Reduce motion
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .ticker-inner { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ============ NAV ============ -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-mark">N</div>
+    NEXUZ
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#cta" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <div class="nav-toggle" id="navToggle" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Nexuz Corporation — Est. 2024</div>
+    <h1 class="hero-title">
+      <span class="line"><span>Building</span></span>
+      <span class="line"><span>Software That</span></span>
+      <span class="line"><span class="accent">Matters.</span></span>
+    </h1>
+    <p class="hero-sub">
+      We build and manage custom software for organizations that need it done right — from frontend to backend, documentation to deployment.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary"><span>View Our Work</span></a>
+      <a href="#cta" class="btn-ghost">Start a Project →</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item">Custom Software Development</span>
+    <span class="ticker-item">Firebase Architecture</span>
+    <span class="ticker-item">Frontend Engineering</span>
+    <span class="ticker-item">Backend Systems</span>
+    <span class="ticker-item">Technical Documentation</span>
+    <span class="ticker-item">Portal Development</span>
+    <span class="ticker-item">Kuala Lumpur, Malaysia</span>
+    <span class="ticker-item">Custom Software Development</span>
+    <span class="ticker-item">Firebase Architecture</span>
+    <span class="ticker-item">Frontend Engineering</span>
+    <span class="ticker-item">Backend Systems</span>
+    <span class="ticker-item">Technical Documentation</span>
+    <span class="ticker-item">Portal Development</span>
+    <span class="ticker-item">Kuala Lumpur, Malaysia</span>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-left reveal">
+        <div class="section-label">Who We Are</div>
+        <h2 class="section-title">The technical side, handled.</h2>
+        <p class="about-text">
+          Nexuz Corporation is a software development company based in <strong>Kuala Lumpur, Malaysia</strong>. We build and manage purpose-built software for organizations — end to end.
+        </p>
+        <p class="about-text">
+          From complex portal systems with <strong>role-based permissions</strong> to corporate documentation and deployment infrastructure — we handle the full stack so our clients don't have to.
+        </p>
+      </div>
+      <div class="about-right reveal">
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-num">24<span class="stat-accent">+</span></div>
+            <div class="stat-label">Permission Levels Built</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">6<span class="stat-accent">+</span></div>
+            <div class="stat-label">Active Modules</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">100<span class="stat-accent">%</span></div>
+            <div class="stat-label">Client Delivery Rate</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-num">1<span class="stat-accent">st</span></div>
+            <div class="stat-label">Class Software</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="section-inner">
+    <div class="services-header">
+      <div class="reveal">
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">Our Services</h2>
+      </div>
+      <p class="services-intro reveal">
+        Every engagement is handled with full technical ownership — we don't hand off half-built systems.
+      </p>
+    </div>
+    <div class="services-list">
+      <div class="service-item reveal">
+        <span class="service-num">01</span>
+        <span class="service-name">Custom Portal Development</span>
+        <div class="service-tags">
+          <span class="service-tag">Firebase</span>
+          <span class="service-tag">HTML/CSS/JS</span>
+          <span class="service-tag">RBAC</span>
+        </div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">02</span>
+        <span class="service-name">Frontend Engineering</span>
+        <div class="service-tags">
+          <span class="service-tag">UI/UX</span>
+          <span class="service-tag">Responsive</span>
+          <span class="service-tag">Performance</span>
+        </div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">03</span>
+        <span class="service-name">Backend & Infrastructure</span>
+        <div class="service-tags">
+          <span class="service-tag">Firebase</span>
+          <span class="service-tag">Node.js</span>
+          <span class="service-tag">Python</span>
+        </div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">04</span>
+        <span class="service-name">Technical Documentation</span>
+        <div class="service-tags">
+          <span class="service-tag">DOCX</span>
+          <span class="service-tag">PDF</span>
+          <span class="service-tag">Reports</span>
+        </div>
+      </div>
+      <div class="service-item reveal">
+        <span class="service-num">05</span>
+        <span class="service-name">Automation & Tooling</span>
+        <div class="service-tags">
+          <span class="service-tag">Telegram Bots</span>
+          <span class="service-tag">Scripts</span>
+          <span class="service-tag">CI/CD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">Our Work</div>
+      <h2 class="section-title">Selected Projects</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card featured reveal">
+        <div class="project-meta">
+          <span class="project-status live">Live</span>
+          <span class="project-year">2024 — 2025</span>
+        </div>
+        <h3 class="project-name">SMICS Portal</h3>
+        <p class="project-desc">
+          A full-scale Catholic Society Management System built for a school organization. Features 24+ role-based permission levels, six ministry modules, Firebase backend, and a complete Dark Emerald & Rich Gold visual identity system.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Firebase</span>
+          <span class="stack-tag">HTML/CSS/JS</span>
+          <span class="stack-tag">RBAC</span>
+          <span class="stack-tag">v2.0.0</span>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-meta">
+          <span class="project-status live">Live</span>
+          <span class="project-year">2025</span>
+        </div>
+        <h3 class="project-name">Nexuz Corporate Site</h3>
+        <p class="project-desc">
+          Company website deployed on Cloudflare Pages with animated hero, scroll-reveal sections, and custom cursor system.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">HTML/CSS/JS</span>
+          <span class="stack-tag">Cloudflare</span>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-meta">
+          <span class="project-status development">Internal</span>
+          <span class="project-year">2025</span>
+        </div>
+        <h3 class="project-name">Nexuz HQ Bot</h3>
+        <p class="project-desc">
+          Telegram bot for internal operations, notifications, and encrypted file handling.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Telegram API</span>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-meta">
+          <span class="project-status development">Delivered</span>
+          <span class="project-year">2025</span>
+        </div>
+        <h3 class="project-name">Document System</h3>
+        <p class="project-desc">
+          Full corporate document template suite — DOCX and PDF with cover pages, TOC, signature blocks, and branded letterheads.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">ReportLab</span>
+          <span class="stack-tag">Node.js</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section id="process">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="section-label">How We Work</div>
+      <h2 class="section-title">Our Process</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="process-step-num">01</div>
+        <h3 class="process-step-title">Discovery</h3>
+        <p class="process-step-desc">We start by understanding your organization, your goals, and your users. No assumptions — just direct conversation.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step-num">02</div>
+        <h3 class="process-step-title">Architecture</h3>
+        <p class="process-step-desc">We design the system before touching code — database structure, permission models, user flows, and technical specifications.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step-num">03</div>
+        <h3 class="process-step-title">Build</h3>
+        <p class="process-step-desc">Full-stack development with iterative delivery. You see progress at every stage — not just at the end.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step-num">04</div>
+        <h3 class="process-step-title">Handover</h3>
+        <p class="process-step-desc">Complete documentation, deployment, and knowledge transfer. We don't disappear after launch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="cta-label reveal">Ready to Build</div>
+    <h2 class="cta-title reveal">Let's Work<br>Together.</h2>
+    <p class="cta-sub reveal">Have a project in mind? Tell us what you need and we'll tell you how we can build it.</p>
+    <div class="reveal">
+      <a href="mailto:nxzcrp@proton.me" class="btn-primary"><span>Start a Conversation</span></a>
+      <br>
+      <a href="mailto:nxzcrp@proton.me" class="cta-email">nxzcrp@proton.me</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">NEXUZ</div>
+        <p class="footer-tagline">Building software that matters.<br>Kuala Lumpur, Malaysia.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#process">Process</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="mailto:nxzcrp@proton.me">nxzcrp@proton.me</a></li>
+          <li><a href="#">nexuzcorp.com</a></li>
+          <li><a href="#">Kuala Lumpur, MY</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 <span>Nexuz Corporation</span>. All rights reserved.</div>
+      <div class="footer-legal">
+        <a href="/pages/legal.html">Privacy</a>
+        <a href="/pages/legal.html">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+// ── Custom Cursor ──
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+});
+
+function animateRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// ── Nav scroll ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// ── Mobile nav ──
+const toggle   = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+const spans    = toggle.querySelectorAll('span');
+
+toggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  spans[0].style.transform = open ? 'translateY(6px) rotate(45deg)' : '';
+  spans[1].style.opacity   = open ? '0' : '1';
+  spans[2].style.transform = open ? 'translateY(-6px) rotate(-45deg)' : '';
+});
+
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  });
+});
+
+// ── Scroll reveal ──
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      // Stagger siblings
+      const siblings = [...entry.target.parentElement.querySelectorAll('.reveal')];
+      const idx = siblings.indexOf(entry.target);
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, idx * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+
+// ── Animated stat counters ──
+const statNums = document.querySelectorAll('.stat-num');
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const text = el.textContent;
+      const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+      const suffix = text.replace(/[0-9.]/g, '').replace(/\s/g, '');
+      let start = 0;
+      const duration = 1200;
+      const step = (timestamp) => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.innerHTML = Math.round(eased * num) + '<span class="stat-accent">' + suffix + '</span>';
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+statNums.forEach(el => statObserver.observe(el));
+
+// ── Smooth anchor scroll ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: offset, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
